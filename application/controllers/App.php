@@ -25,4 +25,31 @@
             $this->load->view('app/index', $data);
             
         }
+
+        public function file_upload() { // digunakan untuk upload file
+            $uploadPath = 'dokumen/';
+        
+            $config['upload_path'] = $uploadPath;
+            $config['allowed_types'] = 'doc|docx';
+            $config['max_size'] = 3000;
+        
+            $this->load->library('upload', $config);
+        
+            if ( ! $this->upload->do_upload('file')) {
+        
+                    $error = array('error' => $this->upload->display_errors());
+        
+                    echo "Periksa permission folder ".$uploadPath;
+                    var_dump($error); die;
+        
+            } else {
+                    $this->session->set_flashdata('pesan','<div class="alert alert-success" role="alert">Dokumen berhasil diunggah</div>');
+        
+                    $data = array('upload_data' => $this->upload->data());
+        
+            }
+            redirect('App/index');
+        
+          } // sampai sini
+
     }

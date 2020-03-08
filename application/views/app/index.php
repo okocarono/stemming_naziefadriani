@@ -11,10 +11,10 @@
  </head>
 	<body>
     <nav class="navbar navbar-light bg-light">
-      <a class="navbar-brand container-fluid" href="#">STEMMING</a>
+      <a class="navbar-brand container-fluid" href="#">APLIKASI PENCARIAN KATA BAKU </a>
     </nav>
-		<h1 class="py-5 display-4 text-center">PENCARIAN KATA DASAR PADA SEBUAH KALIMAT DENGAN ALGORITMA NAZIEF</h1>
-        <div class="container">
+		<!-- <h1 class="py-5 display-4 text-center">PENCARIAN KATA DASAR PADA SEBUAH KALIMAT DENGAN ALGORITMA NAZIEF & ADRIANI</h1> -->
+        <!-- <div class="container">
             <div class="row">
                 <div class="col-lg-6">
                     <form method="post" action="<?= base_url(); ?>">
@@ -27,6 +27,35 @@
                 <div class="col-lg-6">
                     <label for="hasil">Kata Dasar :</label>
                     <textarea name="hasil" id="hasil" class="form-control" cols="30" rows="10"><?php if($stemming){ if(count($stemming) > 1) { $hitung = 1; foreach($stemming as $s) { if($hitung != count($stemming)) { echo $s.', '; } else { echo $s; } $hitung++; } } else { echo $stemming; } } ?></textarea>
+                </div>
+            </div>
+        </div> -->
+
+        <div class="container">
+            <?php if($this->session->flashdata('pesan')): ?>
+                <div class="row">
+                    <div class="col-7 mx-auto text-center">
+                        <?= $this->session->flashdata('pesan'); ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+            <div class="row">
+                <div class="col-7 mx-auto">
+                    <div class="card">
+                        <div class="card-header">Dokumen Word</div>
+                            <div class="card-body">
+                                <form action="<?= base_url('App/file_upload')?>" method="post" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <label for="upload">Unggah File</label>
+                                        <input type="file" multiple name="file" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary"> Unggah </button>
+                                    </div>
+                                </form>
+                            </div>
+                    </div>
                 </div>
             </div>
         </div>
