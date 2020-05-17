@@ -13,8 +13,8 @@
     <nav class="navbar navbar-light bg-light">
       <a class="navbar-brand container-fluid" href="#">APLIKASI PENCARIAN KATA BAKU </a>
     </nav>
-		<!-- <h1 class="py-5 display-4 text-center">PENCARIAN KATA DASAR PADA SEBUAH KALIMAT DENGAN ALGORITMA NAZIEF & ADRIANI</h1> -->
-        <!-- <div class="container">
+		<!-- <h1 class="py-5 display-4 text-center">PENCARIAN KATA DASAR PADA SEBUAH KALIMAT DENGAN ALGORITMA NAZIEF & ADRIANI</h1>
+        <div class="container">
             <div class="row">
                 <div class="col-lg-6">
                     <form method="post" action="<?= base_url(); ?>">
