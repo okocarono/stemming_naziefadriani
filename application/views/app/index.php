@@ -11,10 +11,10 @@
  </head>
 	<body>
     <nav class="navbar navbar-light bg-light">
-      <a class="navbar-brand container-fluid" href="#">APLIKASI PENCARIAN KATA BAKU </a>
+      <a class="navbar-brand container-fluid" href="#">APLIKASI PENCARIAN KATA BAKU DAN KATA TIDAK BAKU</a>
     </nav>
-		<!-- <h1 class="py-5 display-4 text-center">PENCARIAN KATA DASAR PADA SEBUAH KALIMAT DENGAN ALGORITMA NAZIEF & ADRIANI</h1>
-        <div class="container">
+		<div class="py-5 display-4 text-center"></div>
+       <!--  <div class="container">
             <div class="row">
                 <div class="col-lg-6">
                     <form method="post" action="<?= base_url(); ?>">
