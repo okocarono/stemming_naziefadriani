@@ -9,31 +9,59 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
-    <title>Pencarian Kata Baku!</title>
+    <title>Pencarian Kata Tidak Baku</title>
   </head>
   <body>
     <div class="container">
-      <h1 class="display-4 text-center" onclick="debug()">Pencarian Kata Baku Dan Tidak Baku</h1>
+      <h1 class="display-4 text-center" onclick="debug()">Pencarian Kata Tidak Baku</h1>
 
       <input type="hidden" id="id_dokumen" value="<?= $dokumen->id_dokumen ?>">
       <input type="hidden" id="lokasi_dokumen" value="<?= $dokumen->file_path ?>">
       <hr>
-
       <div class="row">
 	<div class="col-5">
-    <h4>Total kata baku : <span id="total_kata_baku">0</span> kata.</h4>
-    <h4>Total kata tidak baku :  <span id="total_masalah">0</span> kata.</h4>
-    <h4>Total kata di dokumen : <span id="total_kata_dokumen">0</span> kata.</h4>
-    <h4>Total kata di stemming : <span id="total_kata">0</span> kata.</h4>
-    <h4>Total katsim yang dibuang :  <span id="total_kata_dibuang">0</span> katsim.</h4>
-    <h4>Total waktu eksekusi :  <span id="total_waktu_eksekusi">0</span> detik.</h4>
-    <small class="text-muted">*Katsim merupakan akronim dari kata dan simbol</small>
+    <h3>Summary</h3>
+
+    <table>
+        <tr>
+            <td><h5>Total kata di dokumen</h5></td>
+            <td><h5>:</h5></td>
+            <td><h5><span id="total_kata_dokumen">0</span> kata.</h5></td>
+        </tr>
+        <tr>
+            <td><h5>Total kata & simbol yang dibuang</h5></td>
+            <td><h5>:</h5></td>
+            <td><h5><span id="total_kata_dibuang">0</span> kata.</h5></td>
+        </tr>
+        <tr>
+            <td><h5>Total kata di stemming</h5></td>
+            <td><h5>:</h5></td>
+            <td><h5><span id="total_kata">0</span> kata.</h5></td>
+        </tr>
+        <tr>
+            <td><h5>Total kata baku </h5></td>
+            <td><h5>:</h5></td>
+            <td><h5><span id="total_kata_baku">0</span> kata.</h5></td>
+        </tr>
+        <tr>
+            <td><h5>Total kata tidak baku</h5></td>
+            <td><h5>:</h5></td>
+            <td><h5><span id="total_masalah">0</span> kata.</h5></td>
+        </tr>
+        <tr>
+            <td><h5>Total waktu eksekusi</h5></td>
+            <td><h5>:</h5></td>
+            <td><h5><span id="total_waktu_eksekusi">0</span> detik.</h5></td>
+        </tr>
+    </table>
+    
+	  <small class="text-danger font-weight-bold">* Kata tidak baku bisa berupa nama orang, bahasa asing, akronim, dan merek</small>
 	  <br>
-	  <small class="text-danger font-weight-bold">Kata tidak baku bisa berupa nama orang, bahasa asing, dan merek</small>
-	  <br>
+    <small class="text-danger font-weight-bold">* Jika rekomendasi kata kosong maka kata bisa berupa nama orang, bahasa asing, akronim, dan merek</small>
+    <br>
 	</div>
-	<div class="col-3">
-	  <h5>Kata tidak baku</h5>
+	<div class="col-7">
+	  <h3>Kata tidak baku dan rekomendasi kata baku</h3>
 	  <div style="height: 200px; overflow-y: scroll">
 	    <table class="table">
 	      <tbody id="list_tidak_baku">
@@ -41,23 +69,10 @@
 	    </table>
 	  </div>
 	</div>
-  <div class="col-4">
-    <h5>Rekomendasi Kata Baku</h5>
-    <div style="height: 200px; overflow-y: scroll">
-      <table class="table">
-        <tbody id="rekomendasi_kata">
-        </tbody>
-      </table>
-    </div>
   </div>
-      </div>
-      
       <hr>
-      
       <button type="button" id="tombol" onclick="tampilkan_data()" class="btn btn-primary mt-2">Tampilkan</button>
     <div>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
@@ -127,18 +142,35 @@
       let saran_kata = result.masalah;
       let kata_dibuang = result.masalah_baru;
 
+      // custom
+      let koreksi = result.koreksi;
+      let rekomendasi_koreksi = result.rekomendasi_koreksi;
+
       let saran = '';
       let sementara = '';
+
+      rekomendasi_koreksi.forEach(res => {
+          saran += `<tr><td>Berikut beberapa saran entri lain yang mirip. ${res}</td></tr>`;
+      });
 
       saran_kata.forEach(res => {
           saran += `<tr><td>${res}</td></tr>`;
       });
 
-      rekomendasi_kata.innerHTML = saran;
+      // rekomendasi_kata.innerHTML = saran;
+      
+      let i = 0;
+      koreksi.forEach(res => {
+        sementara += `<tr><td>${res} <span class='text-danger'>tidak baku</span> -> Berikut beberapa saran entri lain yang mirip. ${rekomendasi_koreksi[i]}</td></tr>`;   
+        i++;
+      });
 
-		  kata_dibuang.forEach(res => {
-		      sementara += `<tr><td>${res}</td></tr>`;
-		  });
+      i = 0;
+      kata_dibuang.forEach(res => {
+        sementara += `<tr><td>${res} <span class='text-danger'>tidak baku</span> -> ${saran_kata[i]}</td></tr>`;
+        i++;
+      });
+
 
 		  list_tidak_baku.innerHTML = sementara;  
       }
