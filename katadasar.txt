@@ -4013,7 +4013,7 @@ cendang
 cendawan 
 cendekia 
 cendekiawan 
-cenderai 
+cendera mata
 cenderasa 
 cenderawasih 
 cenderung 
@@ -23230,8 +23230,7 @@ sele
 selebaran 
 selebran 
 selebrasi 
-selebritas 
-selebriti 
+selebritas
 selebu 
 seleder 
 selederi 

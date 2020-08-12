@@ -62,7 +62,7 @@
 	</div>
 	<div class="col-7">
 	  <h3>Kata tidak baku dan rekomendasi kata baku</h3>
-	  <div style="height: 200px; overflow-y: scroll">
+	  <div style="height: 300px; overflow-y: scroll">
 	    <table class="table">
 	      <tbody id="list_tidak_baku">
 	      </tbody>
@@ -161,13 +161,13 @@
       
       let i = 0;
       koreksi.forEach(res => {
-        sementara += `<tr><td>${res} <span class='text-danger'>tidak baku</span> -> Berikut beberapa saran entri lain yang mirip. ${rekomendasi_koreksi[i]}</td></tr>`;   
+        sementara += `<tr><td>${res} <span class='text-danger'>tidak baku</span> : Berikut beberapa saran entri lain yang mirip. ${rekomendasi_koreksi[i]}</td></tr>`;   
         i++;
       });
 
       i = 0;
       kata_dibuang.forEach(res => {
-        sementara += `<tr><td>${res} <span class='text-danger'>tidak baku</span> -> ${saran_kata[i]}</td></tr>`;
+        sementara += `<tr><td>${res} <span class='text-danger'>tidak baku</span> : ${saran_kata[i]}</td></tr>`;
         i++;
       });
 
